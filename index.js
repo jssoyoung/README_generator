@@ -1,38 +1,13 @@
+const fs = require('fs');
+const path = require('path');
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
+const { writeFile } = require('fs').promises;
 
-const generateHTML = ({ name, location, github, linkedin }) =>
-  `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>README.md</title>
-</head>
-<body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">${title}</h1>
-    <nav class="nav">${table_of_contents}</nav>
-    <p class="lead">Description${description}.</p>
-    <p class="lead">Installation${installation}.</p>
-    <p class="lead">Usage${usage}.</p>
-    <p class="lead">Credits${credits}.</p>
-    <p class="lead">License${license}.</p>
-    <p class="lead">Tests${tests}.</p>
-    <p class="lead">Questions</p>
-    <ul class="list-group">
-      <li class="list-group-item">My GitHub username is ${github}</li>
-      <li class="list-group-item">Email: ${email}</li>
-    </ul>
-  </div>
-</div>
-</body>
-</html>`;
-
-// TODO: Create an array of questions for user input
-const questions = [
+// Array of questions for user input
+function init() {
+inquirer
+    .prompt([
     {
         type: 'input',
         name: 'title',
@@ -42,11 +17,6 @@ const questions = [
         type: 'input',
         name: 'description',
         message: 'Please write a short description explaining what your project is and why you built it'
-    },
-    {
-        type: 'input',
-        name: 'table_of_contents',
-        message: 'Table of contents'
     },
     {
         type: 'input',
@@ -66,12 +36,13 @@ const questions = [
     {
         type: 'list',
         name: 'license',
-        message: 'License'
+        message: 'What kind of a license should your project have?',
+        choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None']
     },
     {
         type: 'input',
         name: 'tests',
-        message: 'Tests'
+        message: 'Write tests for your application. Provide examples here.'
     },
     {
         type: 'input',
@@ -83,24 +54,13 @@ const questions = [
         name: 'email',
         message: 'What is your email?'
     },
-];
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    // TODO add fs code here to save file
-    const pageContent = generateREADME(data);
-    fs.writeFile('index.html', pageContent, (err) =>
-    err ? console.log(err) : console.log('Successfully created README!')
+])
+.then((answers) => {
+    const pageContent = generateMarkdown(answers);
+    writeFile('README.md', pageContent, (err) =>
+    err ? console.log(err) : console.log('Successfully created README.md!')
     );
+});
 }
 
-// TODO: Create a function to initialize app
-function init() {
-    inquirer.prompt(questions).then(function(answers) {
-        const markdownText = generateMarkdown(answers);
-        writeToFile('whatevs', markdownText);
-    })
-}
-
-// Function call to initialize app
 init();
