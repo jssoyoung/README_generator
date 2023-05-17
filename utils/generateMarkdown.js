@@ -1,55 +1,60 @@
 // Returns a license badge based on which license is passed in. If there is no license, returns an empty string
-// TODO why doesnt badge show? how to put it at the top of README
-//WHEN I choose a license for my application from a list of options
-// THEN a badge for that license is added near the top of the README and a notice is added to the section of the README entitled License that explains which license the application is covered under
 function renderLicenseBadge(license) {
-    if (license === 'MIT' || license === 'APACHE 2.0' || license === 'GPL 3.0' || license === 'BSD 3') {
-        return `![GitHub license]https://img.shields.io/badge/license-${license}-blue.svg`
+    if (license === 'MIT' || license === 'APACHE_2.0' || license === 'GPL_3.0' || license === 'BSD_3') {
+        return `![License](https://img.shields.io/badge/License-${license}-blue.svg)`
     } else {return ""}
 }
 
 // Returns the license link. If there is no license, returns an empty string
-// TODO why doesnt it show?
 function renderLicenseLink(license) {
-    if (license === 'MIT' || license === 'APACHE 2.0' || license === 'GPL 3.0' || license === 'BSD 3') {
+    if (license === 'MIT' || license === 'APACHE_2.0' || license === 'GPL_3.0' || license === 'BSD_3') {
         return `\n* [License](#license)\n`
     } else {return ""}
 }
 
 // Returns the license section of README. If there is no license, returns an empty string
 function renderLicenseSection(license) {
-    if (license === 'MIT' || license === 'APACHE 2.0' || license === 'GPL 3.0' || license === 'BSD 3') {
-        return `This project is licensed under the ${license} license.`
+    if (license === 'MIT' || license === 'APACHE_2.0' || license === 'GPL_3.0' || license === 'BSD_3') {
+        return `## License
+        
+        This project is licensed under the ${license} license.`
     } else {return ""}
 }
 
 // Function to generate markdown for README
 function generateMarkdown (data) {
 return `# ${data.title}
-  ## Description
-  ${data.description}
+${renderLicenseBadge(data.license)}
 
-  ## Table of Contents
- ????????? - when clicked it should go to corresponding sections
+## Description
+${data.description}
 
-  ## Installation
-  ${data.installation}
+## Table of Contents
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Credits](#credits)
+  ${renderLicenseLink(data.license)}
+* [Tests](#test)
+* [Questions](#questions)
 
-  ## Usage
-  ${data.usage}
+## Installation
+${data.installation}
 
-  ## Credits
-  ${data.credits}
+## Usage
+${data.usage}
 
-  ## License
-  ${renderLicenseSection(data.license)}
+## Credits
+${data.credits}
 
-  ## Tests
-  ${data.tests}
+${renderLicenseSection(data.license)}
+ 
+## Tests
+${data.tests}
 
-  ## Questions
-  Here is my github: github.com/${data.github}
-  This is also my email if you wish to reache me with additional questions: ${data.email}
+## Questions
+Here is my github: github.com/${data.github}
+
+This is also my email if you wish to reache me with additional questions: ${data.email}
 `;
 };
 

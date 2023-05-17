@@ -37,7 +37,7 @@ inquirer
         type: 'list',
         name: 'license',
         message: 'What kind of a license should your project have?',
-        choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None']
+        choices: ['MIT', 'APACHE_2.0', 'GPL_3.0', 'BSD_3', 'None']
     },
     {
         type: 'input',
@@ -57,7 +57,7 @@ inquirer
 ])
 .then((answers) => {
     const pageContent = generateMarkdown(answers);
-    writeFile('README.md', pageContent, (err) =>
+    writeFile('Sample_README.md', pageContent, (err) =>
     err ? console.log(err) : console.log('Successfully created README.md!')
     );
 });
