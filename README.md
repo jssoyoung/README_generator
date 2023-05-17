@@ -6,7 +6,7 @@ This project is a README generator. When the user opens this project on a comman
 
 Here is the link to the github for this project: https://github.com/jssoyoung/README_generator
 
-Here is the link to my walkthrough video of the project: 
+Here is the link to my walkthrough video of the project: https://drive.google.com/file/d/1L8pakkpxAulllX8J6m_X1YrYTsqyShZh/view
 
 ## Installation
 
